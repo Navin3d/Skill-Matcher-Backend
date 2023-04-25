@@ -1,0 +1,31 @@
+version: '3.8'
+services:
+  db:
+    container_name: postgres_container
+    image: postgres:15.2
+    restart: always
+    environment:
+      POSTGRES_DB: postgres_db
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: secret
+      PGDATA: /var/lib/postgresql/data1
+    ports:
+      - "5432:5432"
+    volumes:
+      - db-data:/var/lib/postgresql/data1
+
+  pgadmin:
+    container_name: pgadmin4_container
+    image: dpage/pgadmin4:6.20
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: secret
+      PGADMIN_LISTEN_PORT: 85
+    ports:
+      - "8085:85"
+    volumes:
+      - pgadmin-data:/var/lib/pgadmin1
+volumes:
+  db-data:
+  pgadmin-data:
